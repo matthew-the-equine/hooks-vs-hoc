@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { QuotesList, QuotesTiles } from './Quotes';
+import { QuotesListFromAPI, QuotesListFromUncleBob, QuotesTilesFromAPI, QuotesTilesFromUncleBob } from './Quotes';
 
 ReactDOM.render(
   <React.StrictMode>
     <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-      <QuotesList />
-      <QuotesTiles />
+      <QuotesListFromAPI />
+      <QuotesTilesFromAPI />
+      <QuotesListFromUncleBob />
+      <QuotesTilesFromUncleBob />
     </div>
   </React.StrictMode>,
   document.getElementById('root')
