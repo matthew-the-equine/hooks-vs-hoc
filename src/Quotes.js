@@ -10,7 +10,20 @@ const QuotesList = ({ quotes }) => (
   </ul>
 )
 
-export class QuotesFromAPI extends React.Component {
+const QuotesTiles = ({ quotes }) => (
+  <div style={{ display: 'flex', flex: 1, flexWrap: 'wrap' }}>
+    {
+      quotes.map(({ source, quote }) => (
+        <div style={{ display: 'flex', flexDirection: 'column', width: '10vw', borderStyle: 'solid', margin: '2px' }}>
+          <span>{source}:</span>
+          <span>{quote}</span>
+        </div>
+      ))
+    }
+  </div>
+)
+
+const withQuotesFromAPI = Quotes => class QuotesFromAPI extends React.Component {
   state = {
     quotes: []
   }
@@ -25,12 +38,12 @@ export class QuotesFromAPI extends React.Component {
 
   render() {
     return (
-      <QuotesList quotes={this.state.quotes} />
+      <Quotes quotes={this.state.quotes} />
     )
   }
 }
 
-export const QuotesFromUncleBob = () => {
+const withQuotesFromUncleBob = Quotes => props => {
   const quotes = [
     { source: 'Robert C. Martin', quote: 'Truth can only be found in one place: the code.' },
     { source: 'Robert C. Martin', quote: 'It is not enough for code to work.' },
@@ -38,6 +51,11 @@ export const QuotesFromUncleBob = () => {
   ]
 
   return (
-    <QuotesList quotes={quotes} />
+    <Quotes {...props} quotes={quotes} />
   )
 }
+
+export const QuotesListFromAPI = withQuotesFromAPI(QuotesList)
+export const QuotesListFromUncleBob = withQuotesFromUncleBob(QuotesList)
+export const QuotesTilesFromAPI = withQuotesFromAPI(QuotesTiles)
+export const QuotesTilesFromUncleBob = withQuotesFromUncleBob(QuotesTiles)
