@@ -13,12 +13,12 @@ const useQuotesFromAPI = () => {
 }
 
 const quotesFromUncleBob = [
-    { source: 'Robert C. Martin', quote: 'Truth can only be found in one place: the code.' },
-    { source: 'Robert C. Martin', quote: 'It is not enough for code to work.' },
-    { source: 'Robert C. Martin', quote: 'Of course bad code can be cleaned up. But it’s very expensive..' },
-  ]
+  { source: 'Robert C. Martin', quote: 'Truth can only be found in one place: the code.' },
+  { source: 'Robert C. Martin', quote: 'It is not enough for code to work.' },
+  { source: 'Robert C. Martin', quote: 'Of course bad code can be cleaned up. But it’s very expensive..' },
+]
 
-  const QuotesList = ({ quotes }) => (
+const QuotesList = ({ quotes }) => (
   <ul style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
     {
       quotes.map(({ source, quote }) => (
@@ -41,21 +41,17 @@ const QuotesTiles = ({ quotes }) => (
   </div>
 )
 
-export const QuotesListFromAPI = () => {
+const withQuotesFromAPI = Quotes => props => {
   const quotes = useQuotesFromAPI()
 
   return (
-    <QuotesList quotes={quotes} />
+    <Quotes {...props} quotes={quotes} />
   )
 }
 
-export const QuotesTilesFromAPI = () => {
-  const quotes = useQuotesFromAPI()
+const withQuotesFromUncleBob = Quotes => props => <Quotes {...props} quotes={quotesFromUncleBob} />
 
-  return (
-    <QuotesTiles quotes={quotes} />
-  )
-}
-
-export const QuotesListFromUncleBob = () => <QuotesList quotes={quotesFromUncleBob} />
-export const QuotesTilesFromUncleBob = () => <QuotesTiles quotes={quotesFromUncleBob} />
+export const QuotesListFromAPI = withQuotesFromAPI(QuotesList)
+export const QuotesTilesFromAPI = withQuotesFromAPI(QuotesTiles)
+export const QuotesListFromUncleBob = withQuotesFromUncleBob(QuotesList)
+export const QuotesTilesFromUncleBob = withQuotesFromUncleBob(QuotesTiles)
