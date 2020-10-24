@@ -1,29 +1,44 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-class Quotes extends React.Component {
-  state = {
-    quotes: []
-  }
+const useQuotes = () => {
+  const [quotes, setQuotes] = useState([])
 
-  componentDidMount = () => {
+  useEffect(() => {
     fetch('http://philosophy-quotes-api.glitch.me/quotes')
-    .then(response => response.json())
-    .then(quotes => this.setState({
-      quotes,
-    }))
-  }
+      .then(response => response.json())
+      .then(response => setQuotes(response))
+  }, [])
 
-  render() {
-    return (
-      <ul style={{ display: 'flex', flexDirection: 'column' }}>
-        {
-          this.state.quotes.map(({ source, quote }) => (
-            <li>{source}: {quote}</li>
-          ))
-        }
-      </ul>
-    );
-  }
+  return quotes
 }
 
-export default Quotes;
+export const QuotesList = () => {
+  const quotes = useQuotes()
+
+  return (
+    <ul style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      {
+        quotes.map(({ source, quote }) => (
+          <li>{source}: {quote}</li>
+        ))
+      }
+    </ul>
+  )
+}
+
+export const QuotesTiles = () => {
+  const quotes = useQuotes()
+
+  return (
+    <div style={{ display: 'flex', flex: 1, flexWrap: 'wrap' }}>
+      {
+        quotes.map(({ source, quote }) => (
+          <div style={{ display: 'flex', flexDirection: 'column', width: '10vw', borderStyle: 'solid', margin: '2px' }}>
+            <span>{source}:</span>
+            <span>{quote}</span>
+          </div>
+        ))
+      }
+    </div>
+  )
+}

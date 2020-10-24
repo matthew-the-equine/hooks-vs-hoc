@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Quotes from './Quotes';
+import { QuotesList, QuotesTiles } from './Quotes';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Quotes />
+    <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+      <QuotesList />
+      <QuotesTiles />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
